@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Brayden Larnard/ 272-002
  *
  *   Note, additional comments provided throughout source code is
  *   for educational purposes.
@@ -224,7 +224,15 @@ class BloomFilter {
         // this class on available methods. You can also see how method 'add'
         // in this class uses the object.
 
-        return false;
+        for (int n = 0; n < noHashes; n++) {
+            long hc = hashCode(s, n);
+            int bitNo = (int) (hc) & this.hashMask;
+            if (!data.get(bitNo)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 

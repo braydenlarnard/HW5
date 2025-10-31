@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Brayden Larnard / 272-002
  *
  *   Note, additional comments provided throughout this source code
  *   is for educational purposes
@@ -250,8 +250,34 @@ public class CuckooHash<K, V> {
 		// Also make sure you read this method's prologue above, it should help
 		// you. Especially the two HINTS in the prologue.
 
-		return;
+		// Create new bucket to insert
+		Bucket<K, V> newBucket = new Bucket<>(key, value);
+		int count = 0;
+		int pos = hash1(key);
+		while (count < CAPACITY) {
+			if (table[pos] == null) {
+				table[pos] = newBucket;
+				return;
+			} else {
+				if (table[pos].getBucKey().equals(key) && table[pos].getValue().equals(value)) {
+					return;
+				} else {
+					Bucket<K, V> temp = table[pos];
+					table[pos] = newBucket;
+					newBucket = temp;
+					if (pos == hash1(newBucket.getBucKey())) {
+						pos = hash2(newBucket.getBucKey());
+					} else {
+						pos = hash1(newBucket.getBucKey());
+					}
+					count++;
+				}
+			}
+		}
+		rehash();
+		put(newBucket.getBucKey(), newBucket.getValue());
 	}
+
 
 
 	/**

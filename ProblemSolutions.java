@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Brayden Larnard / 272-002
  *
  *   This java file contains the problem solutions of isSubSet, findKthLargest,
  *   and sort2Arrays methods. You should utilize the Java Collection Framework for
@@ -33,8 +33,22 @@ class ProblemSolutions {
     public boolean isSubset(int list1[], int list2[]) {
 
         // ADD YOU CODE HERE -- DON'T FORGET TO ADD YOR NAME AT TOP OF FILE
+        // Initialize a hash table
+        Map<Integer, Integer> table = new Hashtable<>();
+        
+        // Add all elements from list1 to hashtable
+        for (int num : list1) {
+            table.put(num, 1);
+        }
 
-        return false;
+        // Check if all elements in list2 are in hashtable
+        for (int item : list2) {
+            if (!table.containsKey(item)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
@@ -54,8 +68,21 @@ class ProblemSolutions {
     public int findKthLargest(int[] array, int k) {
 
         // ADD YOUR CODE HERE
+        // Initialize a priority queue
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
-        return 0;
+        // Add elements to the priority queue
+        for (int num : array) {
+            pq.add(num);
+            // If the size of the queue gets larger than k, remove the smallest element
+            // This makes sure the queue only contains the largest k elements
+            if (pq.size() > k) {
+                pq.poll(); 
+            }
+        }
+
+        // The root of the queue should be the kth largest element
+        return pq.peek();
     }
 
 
@@ -75,8 +102,25 @@ class ProblemSolutions {
     public int[] sort2Arrays(int[] array1, int[] array2) {
 
         // ADD YOU CODE HERE
+        // Initialize a priority queue
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
-        return null;
+        // Add each item from both lists to the priority queue
+        for (int item : array1) {
+            pq.add(item);
+        }
+        for (int item : array2) {
+            pq.add(item);
+        }
+
+        int[] result = new int[array1.length + array2.length]; // Initialize sorted to length of both arrays
+
+        // Add the sorted elements to the result array
+        for (int i = 0; i < result.length; i++) {
+            result[i] = pq.poll();
+        }
+
+        return result;
     }
 
 }
